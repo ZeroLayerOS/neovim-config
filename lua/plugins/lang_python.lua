@@ -1,4 +1,4 @@
-return {
+ return {
   -- LSP: basedpyright for types + ruff for linting/formatting
   {
     "neovim/nvim-lspconfig",
@@ -72,9 +72,11 @@ return {
   },
 
   -- virtualenv management
+  -- NOTE: the "regexp" branch was merged into main on 2025-08-27. Pinning it
+  -- now pulls a stale, no-longer-updated branch — the plugin author's
+  -- current guidance is to drop `branch` entirely and track main.
   {
     "linux-cultist/venv-selector.nvim",
-    branch = "regexp",
     cmd = "VenvSelect",
     opts = {},
     keys = {
