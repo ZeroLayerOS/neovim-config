@@ -14,3 +14,7 @@ vim.g.c_syntax_for_h = 1 -- treat .h files as C, not C++, by default
 
 -- Python
 vim.g.python3_host_prog = vim.fn.exepath("python3") -- use the python3 found in PATH
+if vim.g.neovide then
+  vim.g.neovide_opacity = 0.8        -- شفافية النافذة كلها (0 = شفاف تمامًا, 1 = معتم)
+  vim.g.neovide_normal_opacity = 0.8 -- شفافية خلفية الكتابة نفسها
+end
