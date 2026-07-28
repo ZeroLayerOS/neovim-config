@@ -1,4 +1,4 @@
-return {
+ return {
   -- file icons
   {
     "nvim-tree/nvim-web-devicons",
@@ -20,8 +20,12 @@ return {
   },
 
   -- highlight hex colors
+  -- NOTE: norcalli/nvim-colorizer.lua is unmaintained (no responses on issues
+  -- in years). catgoose/nvim-colorizer.lua is the actively maintained fork,
+  -- same zero-config setup() API.
   {
-    "norcalli/nvim-colorizer.lua",
+    "catgoose/nvim-colorizer.lua",
+    event = "BufReadPre",
     config = function()
       require("colorizer").setup()
     end,
