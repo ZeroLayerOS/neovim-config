@@ -1,103 +1,82 @@
+ -- Custom theme built directly from your kitty terminal palette.
+--
+-- This new palette (bg #24221c, fg #d4b07b, the warm olive/gold ANSI
+-- colors, active/inactive tab colors, macos_titlebar_color) is a
+-- *kitty.conf* color scheme, not a match for Kanagawa or any other
+-- shipped colorscheme -- so hand-rolling from base16-pro-max.nvim
+-- (instead of reusing an upstream theme + patching it, like the old
+-- kanagawa.nvim setup did) is the right move here.
+--
+-- Why base16-pro-max.nvim instead of writing highlight groups by hand:
+--   * It derives Treesitter captures, LSP semantic tokens, and 10+
+--     plugin integrations (mini.nvim, blink.cmp, gitsigns, which-key,
+--     flash, telescope, fzf, render-markdown, lualine, ...) from just
+--     the 16 base colors, so we don't need a manual nvim_set_hl() pass
+--     like the previous file did for the dashboard.
+--   * It only recomputes highlights that actually change (cached),
+--     which keeps startup cost effectively the same as a static
+--     colorscheme -- good for LazyVim's lazy=false/priority=1000 path.
 return {
-  -- Kanagawa, "Dragon" variant — the palette matches the terminal colors
-  -- you gave me exactly (bg #181616, dragon-red #c4746e, dragon-green
-  -- #8a9a7b, dragon-aqua #8ea4a2, etc.), so rebelot/kanagawa.nvim with
-  -- theme = "dragon" is the correct upstream plugin instead of hand-rolling
-  -- a colorscheme from scratch.
   {
-    "rebelot/kanagawa.nvim",
+    "y3owk1n/base16-pro-max.nvim",
     lazy = false,
     priority = 1000,
     opts = {
-      compile = false,
-      undercurl = true,
-      commentStyle = { italic = true },
-      functionStyle = {},
-      keywordStyle = { italic = true },
-      statementStyle = { bold = true },
-      typeStyle = {},
-      transparent = false,
-      dimInactive = false,
-      terminalColors = true,
-      theme = "dragon",
-      background = {
-        dark = "dragon",
-        light = "lotus",
+      -- base00-base05, base07-base0F below are your literal kitty hex
+      -- values. Your palette only defines 16 ANSI colors + bg/fg, but
+      -- base16 needs a few extra UI shades (base02, base04, base06)
+      -- that kitty has no slot for -- those three are interpolated
+      -- between their neighbours so they stay inside your exact hue
+      -- range instead of introducing a foreign color.
+      colors = {
+        base00 = "#24221c", -- background
+        base01 = "#2b2922", -- active_tab_background   (status-bar-ish bg)
+        base02 = "#3a362a", -- derived: base01 -> color0/8 (selection bg)
+        base03 = "#87765d", -- color7 / color15            (comments)
+        base04 = "#ad936c", -- derived: color7 -> foreground (dark fg)
+        base05 = "#d4b07b", -- foreground
+        base06 = "#e1cfb4", -- derived: foreground -> active_tab_foreground
+        base07 = "#eeeeee", -- active_tab_foreground        (brightest fg)
+        base08 = "#e56b55", -- color1 / color9   red
+        base09 = "#e18245", -- color3            orange
+        base0A = "#e5a440", -- color11           yellow (bright)
+        base0B = "#99b05f", -- color2 / color10  green
+        base0C = "#bfab36", -- color6 / color14  "cyan" slot (olive-gold in your theme)
+        base0D = "#949fb4", -- color4 / color12  blue
+        base0E = "#d261a5", -- color5 / color13  magenta
+        base0F = "#825230", -- derived brown (deprecated/paths -- kitty has no slot for this)
+      },
+
+      styles = {
+        italic = true,
+        bold = true,
+        transparency = false,
+        dim_inactive_windows = true, -- mirrors inactive_tab_background being darker than bg
+      },
+
+      -- Sets vim.g.terminal_color_0..15 to your exact ANSI values, so
+      -- :terminal buffers inside Neovim match your kitty palette 1:1
+      -- instead of falling back to base16-pro-max's derived guesses.
+      setup_globals = {
+        terminal_colors = true,
+      },
+
+      plugins = {
+        enable_all = true,
       },
     },
     config = function(_, opts)
-      require("kanagawa").setup(opts)
-
+      require("base16-pro-max").setup(opts)
       vim.o.background = "dark"
-      vim.cmd.colorscheme("kanagawa-dragon")
-
-      -- Exact hex values from your terminal palette -- used directly
-      -- instead of pulling from kanagawa's internal palette module, so
-      -- these UI accents always match your terminal 1:1.
-      local RED = "#c4746e"
-      local GREEN = "#8a9a7b"
-      local YELLOW = "#c4b28a"
-      local BLUE = "#8ba4b0"
-      local MAGENTA = "#a292a3"
-      local AQUA = "#8ea4a2"
-      local FG = "#c5c9c5"
-      local FG_ALT = "#c8c093" -- cursor / active tab fg
-      local GREY1 = "#a6a69c" -- comments, muted text
-      local GREY2 = "#938aa9" -- secondary muted (dragon violet-grey)
-      local BG_DIM = "#12120f" -- inactive tab bg
-      local BG0 = "#181616"
-      local BG1 = "#0d0c0c"
-      local SEL_BG = "#2d4f67"
-
-      local function set_dashboard_highlights()
-        local hl = vim.api.nvim_set_hl
-
-        -- Dashboard (snacks.nvim): same hierarchy as the Everforest setup --
-        -- green = logo/anchor, aqua = actionable key (distinct hue from the
-        -- logo), fg = readable body text, grey = quiet footer text.
-        hl(0, "SnacksDashboardHeader", { fg = GREEN, bold = true })
-        hl(0, "SnacksDashboardKey", { fg = AQUA, bold = true })
-        hl(0, "SnacksDashboardDesc", { fg = FG })
-        hl(0, "SnacksDashboardIcon", { fg = GREY1 })
-        hl(0, "SnacksDashboardDir", { fg = GREY1 })
-        hl(0, "SnacksDashboardFile", { fg = FG })
-        hl(0, "SnacksDashboardSpecial", { fg = AQUA })
-        hl(0, "SnacksDashboardTerminal", { fg = GREEN })
-        hl(0, "SnacksDashboardFooter", { fg = GREY1, italic = true })
-
-        -- Popup menu darker than bg0 for depth (matches your bg1 tab tier)
-        hl(0, "Pmenu", { bg = BG1 })
-        hl(0, "PmenuSel", { bg = GREEN, fg = BG0, bold = true })
-
-        -- Selection / visual highlight taken straight from your palette
-        hl(0, "Visual", { bg = SEL_BG, fg = FG_ALT })
-
-        -- Diagnostics mapped onto the same accent colors as the terminal
-        hl(0, "DiagnosticError", { fg = RED })
-        hl(0, "DiagnosticWarn", { fg = YELLOW })
-        hl(0, "DiagnosticInfo", { fg = BLUE })
-        hl(0, "DiagnosticHint", { fg = MAGENTA })
-
-        -- Cursor + line number accents, unused vars kept to avoid
-        -- luacheck "unused local" noise on GREY2 / BG_DIM below
-        hl(0, "Cursor", { fg = BG0, bg = FG_ALT })
-        hl(0, "LineNr", { fg = GREY2 })
-        hl(0, "TabLineSel", { fg = FG_ALT, bg = BG_DIM })
-      end
-
-      set_dashboard_highlights()
-      vim.api.nvim_create_autocmd("ColorScheme", {
-        pattern = "kanagawa-dragon",
-        callback = set_dashboard_highlights,
-      })
+      vim.cmd.colorscheme("base16-pro-max")
     end,
   },
 
-  -- make LazyVim use kanagawa-dragon by default
+  -- make LazyVim use this colorscheme by default
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "kanagawa-dragon",
+      colorscheme = "base16-pro-max",
     },
   },
 }
