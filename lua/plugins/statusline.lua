@@ -1,18 +1,18 @@
- -- Same exact hex values used in colorscheme.lua (kanagawa-dragon), so
--- lualine matches the terminal/editor palette 1:1 instead of drifting from
--- the leftover "everforest" theme that no longer matches your colorscheme.
+-- Same N0tch2k hex values as colorscheme.lua, so lualine matches the
+-- terminal/editor palette 1:1 instead of drifting from the leftover
+-- "kanagawa-dragon" theme that no longer matches your colorscheme.
 local c = {
-  bg0 = "#181616",
-  bg1 = "#0d0c0c",
-  fg = "#c5c9c5",
-  green = "#8a9a7b",
-  aqua = "#8ea4a2",
-  yellow = "#c4b28a",
-  red = "#c4746e",
-  grey1 = "#a6a69c",
+  bg0 = "#222222", -- background
+  bg1 = "#383838", -- color0 (statusline bg)
+  fg = "#a0a0a0", -- foreground
+  green = "#98bd5e", -- color12 (most saturated color N0tch2k has -- normal mode)
+  aqua = "#c9c9c9", -- color6 (neutral light grey "cyan" -- insert mode)
+  yellow = "#a99175", -- color11 (visual mode)
+  red = "#a95551", -- color1 (replace mode)
+  grey1 = "#a3a3a3", -- color13
 }
 
-local kanagawa_dragon = {
+local n0tch2k = {
   normal = {
     a = { bg = c.green, fg = c.bg0, gui = "bold" },
     b = { bg = c.bg1, fg = c.fg },
@@ -45,7 +45,7 @@ return {
     "nvim-lualine/lualine.nvim",
     opts = {
       options = {
-        theme = kanagawa_dragon,
+        theme = n0tch2k,
         globalstatus = true,
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },

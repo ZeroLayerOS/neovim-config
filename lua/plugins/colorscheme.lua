@@ -1,62 +1,66 @@
- -- Custom theme built directly from your kitty terminal palette.
+-- Theme rebuilt from the N0tch2k terminal palette (verified against the
+-- official kitty-themes repo / Remmina port -- your posted hex values
+-- matched it exactly).
 --
--- This new palette (bg #24221c, fg #d4b07b, the warm olive/gold ANSI
--- colors, active/inactive tab colors, macos_titlebar_color) is a
--- *kitty.conf* color scheme, not a match for Kanagawa or any other
--- shipped colorscheme -- so hand-rolling from base16-pro-max.nvim
--- (instead of reusing an upstream theme + patching it, like the old
--- kanagawa.nvim setup did) is the right move here.
+-- IMPORTANT ABOUT THIS PALETTE: N0tch2k is a deliberately low-saturation,
+-- almost-monochrome "khaki/grunge" theme. Its ANSI cyan (#c9c9c9) and
+-- magenta (#767676/#a3a3a3) slots are just grey -- there is no real blue
+-- or purple anywhere in it. That's a property of the palette, not a bug
+-- in this mapping: code will read as more tonal (browns/greens/greys)
+-- and less rainbow than something like Tokyo Night, by design.
 --
--- Why base16-pro-max.nvim instead of writing highlight groups by hand:
---   * It derives Treesitter captures, LSP semantic tokens, and 10+
---     plugin integrations (mini.nvim, blink.cmp, gitsigns, which-key,
---     flash, telescope, fzf, render-markdown, lualine, ...) from just
---     the 16 base colors, so we don't need a manual nvim_set_hl() pass
---     like the previous file did for the dashboard.
---   * It only recomputes highlights that actually change (cached),
---     which keeps startup cost effectively the same as a static
---     colorscheme -- good for LazyVim's lazy=false/priority=1000 path.
+-- Why base16-pro-max.nvim (unchanged from before):
+--   * Derives Treesitter captures, LSP semantic tokens, and plugin
+--     integrations (mini.nvim, blink.cmp, gitsigns, which-key, flash,
+--     lualine, ...) from just the 16 base colors.
+--   * Cached recompute -- no real startup cost over a static colorscheme.
+--
+-- NOTE: pair this with disable-semantic-tokens.lua. rust-analyzer/clangd
+-- semantic tokens still take priority over Treesitter regardless of the
+-- palette, and will wash colors out to base05 again if left enabled --
+-- that's a separate, unrelated mechanism from which palette is loaded.
 return {
   {
     "y3owk1n/base16-pro-max.nvim",
     lazy = false,
     priority = 1000,
     opts = {
-      -- base00-base05, base07-base0F below are your literal kitty hex
-      -- values. Your palette only defines 16 ANSI colors + bg/fg, but
-      -- base16 needs a few extra UI shades (base02, base04, base06)
-      -- that kitty has no slot for -- those three are interpolated
-      -- between their neighbours so they stay inside your exact hue
-      -- range instead of introducing a foreign color.
+      -- Every value below is a literal N0tch2k ANSI/UI color -- nothing
+      -- invented. Where base16 needs a slot N0tch2k has no equivalent for
+      -- (base0D "blue", base0E "magenta"), the nearest distinct color in
+      -- the existing palette is reused rather than introducing a foreign
+      -- hue -- see the mapping notes per line.
       colors = {
-        base00 = "#24221c", -- background
-        base01 = "#2b2922", -- active_tab_background   (status-bar-ish bg)
-        base02 = "#3a362a", -- derived: base01 -> color0/8 (selection bg)
-        base03 = "#87765d", -- color7 / color15            (comments)
-        base04 = "#ad936c", -- derived: color7 -> foreground (dark fg)
-        base05 = "#d4b07b", -- foreground
-        base06 = "#e1cfb4", -- derived: foreground -> active_tab_foreground
-        base07 = "#eeeeee", -- active_tab_foreground        (brightest fg)
-        base08 = "#e56b55", -- color1 / color9   red
-        base09 = "#e18245", -- color3            orange
-        base0A = "#e5a440", -- color11           yellow (bright)
-        base0B = "#99b05f", -- color2 / color10  green
-        base0C = "#bfab36", -- color6 / color14  "cyan" slot (olive-gold in your theme)
-        base0D = "#949fb4", -- color4 / color12  blue
-        base0E = "#d261a5", -- color5 / color13  magenta
-        base0F = "#825230", -- derived brown (deprecated/paths -- kitty has no slot for this)
+        base00 = "#222222", -- background
+        base01 = "#383838", -- color0            (statusline / line-nr bg)
+        base02 = "#474747", -- color8            (selection bg)
+        base03 = "#767676", -- color5            (comments)
+        base04 = "#666666", -- color2            (dark fg, status bar)
+        base05 = "#a0a0a0", -- foreground
+        base06 = "#d8c8bb", -- color15           (light fg)
+        base07 = "#eeeeee", -- active_tab_foreground (brightest fg)
+        base08 = "#a95551", -- color1  red       (variables, errors)
+        base09 = "#a98051", -- color3  orange    (numbers, constants)
+        base0A = "#a99175", -- color11 yellow    (classes/types)
+        base0B = "#98bd5e", -- color12 green     (strings) -- most saturated color N0tch2k has
+        base0C = "#c9c9c9", -- color6  "cyan"    (regex/escapes -- actually neutral grey in this theme)
+        base0D = "#657d3e", -- color4  "blue"    (functions) -- N0tch2k has no blue; reused the
+        --                                          darker olive so it reads distinct from base0B's
+        --                                          brighter green instead of picking a random hue
+        base0E = "#a97775", -- color9  "magenta" (keywords) -- N0tch2k has no magenta; nearest
+        --                                          distinct warm tone from base08's red
+        base0F = "#d0b8a3", -- color7  brown     (deprecated / embedded-lang tags)
       },
 
       styles = {
         italic = true,
         bold = true,
         transparency = false,
-        dim_inactive_windows = true, -- mirrors inactive_tab_background being darker than bg
+        dim_inactive_windows = true,
       },
 
-      -- Sets vim.g.terminal_color_0..15 to your exact ANSI values, so
-      -- :terminal buffers inside Neovim match your kitty palette 1:1
-      -- instead of falling back to base16-pro-max's derived guesses.
+      -- Sets vim.g.terminal_color_0..15 so :terminal buffers match your
+      -- kitty N0tch2k palette.
       setup_globals = {
         terminal_colors = true,
       },
