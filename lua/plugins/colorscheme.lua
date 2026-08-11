@@ -1,13 +1,19 @@
--- Theme rebuilt from the N0tch2k terminal palette (verified against the
--- official kitty-themes repo / Remmina port -- your posted hex values
--- matched it exactly).
+-- Theme rebuilt from the official Nord palette (verified against the
+-- canonical base16-nord mapping used by tinted-theming / kitty-themes --
+-- this is the standard, widely-adopted base16 <-> Nord translation, not
+-- an invented one).
 --
--- IMPORTANT ABOUT THIS PALETTE: N0tch2k is a deliberately low-saturation,
--- almost-monochrome "khaki/grunge" theme. Its ANSI cyan (#c9c9c9) and
--- magenta (#767676/#a3a3a3) slots are just grey -- there is no real blue
--- or purple anywhere in it. That's a property of the palette, not a bug
--- in this mapping: code will read as more tonal (browns/greens/greys)
--- and less rainbow than something like Tokyo Night, by design.
+-- ABOUT THIS PALETTE: unlike N0tch2k (which is a near-monochrome
+-- khaki/grunge palette with no real blue or purple), Nord is a proper
+-- arctic, bluish palette with genuine distinct hues for every base16
+-- accent slot -- including a real blue (nord9/nord10) and a real
+-- purple/magenta (nord15). Nothing here is reused or faked: every
+-- base08-base0F slot below maps 1:1 to an actual named Nord color.
+--
+-- The signature "coral red" accent people usually mean when they say
+-- "Nord with a distinct red" is nord11 (#BF616A) -- that's base08 below,
+-- used for errors/variables/diagnostics, same role it plays in Nord's
+-- own reference palette.
 --
 -- Why base16-pro-max.nvim (unchanged from before):
 --   * Derives Treesitter captures, LSP semantic tokens, and plugin
@@ -25,31 +31,27 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
-      -- Every value below is a literal N0tch2k ANSI/UI color -- nothing
-      -- invented. Where base16 needs a slot N0tch2k has no equivalent for
-      -- (base0D "blue", base0E "magenta"), the nearest distinct color in
-      -- the existing palette is reused rather than introducing a foreign
-      -- hue -- see the mapping notes per line.
+      -- Every value below is a literal Nord color (Polar Night / Snow
+      -- Storm / Frost / Aurora), matched to base16 slots using the
+      -- standard base16-nord scheme -- nothing invented, nothing reused
+      -- across slots the way N0tch2k needed for its missing hues.
       colors = {
-        base00 = "#222222", -- background
-        base01 = "#383838", -- color0            (statusline / line-nr bg)
-        base02 = "#474747", -- color8            (selection bg)
-        base03 = "#767676", -- color5            (comments)
-        base04 = "#666666", -- color2            (dark fg, status bar)
-        base05 = "#a0a0a0", -- foreground
-        base06 = "#d8c8bb", -- color15           (light fg)
-        base07 = "#eeeeee", -- active_tab_foreground (brightest fg)
-        base08 = "#a95551", -- color1  red       (variables, errors)
-        base09 = "#a98051", -- color3  orange    (numbers, constants)
-        base0A = "#a99175", -- color11 yellow    (classes/types)
-        base0B = "#98bd5e", -- color12 green     (strings) -- most saturated color N0tch2k has
-        base0C = "#c9c9c9", -- color6  "cyan"    (regex/escapes -- actually neutral grey in this theme)
-        base0D = "#657d3e", -- color4  "blue"    (functions) -- N0tch2k has no blue; reused the
-        --                                          darker olive so it reads distinct from base0B's
-        --                                          brighter green instead of picking a random hue
-        base0E = "#a97775", -- color9  "magenta" (keywords) -- N0tch2k has no magenta; nearest
-        --                                          distinct warm tone from base08's red
-        base0F = "#d0b8a3", -- color7  brown     (deprecated / embedded-lang tags)
+        base00 = "#2e3440", -- nord0  background          (Polar Night)
+        base01 = "#3b4252", -- nord1  statusline / line-nr bg (Polar Night)
+        base02 = "#434c5e", -- nord2  selection bg         (Polar Night)
+        base03 = "#4c566a", -- nord3  comments             (Polar Night, brightest)
+        base04 = "#d8dee9", -- nord4  dark fg / status bar (Snow Storm)
+        base05 = "#e5e9f0", -- nord5  foreground           (Snow Storm)
+        base06 = "#eceff4", -- nord6  light fg             (Snow Storm, brightest)
+        base07 = "#8fbcbb", -- nord7  active_tab_foreground (Frost, teal-tinted bright accent)
+        base08 = "#bf616a", -- nord11 red       (variables, errors) -- the signature coral red
+        base09 = "#d08770", -- nord12 orange    (numbers, constants)
+        base0A = "#ebcb8b", -- nord13 yellow    (classes/types)
+        base0B = "#a3be8c", -- nord14 green     (strings)
+        base0C = "#88c0d0", -- nord8  cyan      (regex/escapes) -- real Frost cyan
+        base0D = "#81a1c1", -- nord9  blue      (functions) -- real Frost blue, no reuse needed
+        base0E = "#b48ead", -- nord15 magenta/purple (keywords) -- real Aurora purple, no reuse needed
+        base0F = "#5e81ac", -- nord10 deep blue (deprecated / embedded-lang tags)
       },
 
       styles = {
@@ -60,7 +62,7 @@ return {
       },
 
       -- Sets vim.g.terminal_color_0..15 so :terminal buffers match your
-      -- kitty N0tch2k palette.
+      -- Nord terminal palette.
       setup_globals = {
         terminal_colors = true,
       },
