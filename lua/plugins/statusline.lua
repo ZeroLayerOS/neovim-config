@@ -1,17 +1,22 @@
--- Same Nord hex values as colorscheme.lua, so lualine matches the
+ -- Same hemisu hex values as colorscheme.lua, so lualine matches the
 -- terminal/editor palette 1:1 instead of drifting to a different theme.
+--
+-- Naming note: the "yellow" slot below is hemisu's `accent4` (a warm
+-- tan, #ECE1C8) rather than a true yellow -- hemisu's dark palette has
+-- no real yellow, and tan is the closest warm accent it has, so it's
+-- used for visual mode instead of forcing an unrelated color in.
 local c = {
-  bg0 = "#2e3440", -- nord0 background
-  bg1 = "#3b4252", -- nord1 (statusline bg)
-  fg = "#e5e9f0", -- nord5 foreground
-  green = "#a3be8c", -- nord14 (normal mode)
-  aqua = "#88c0d0", -- nord8  (insert mode)
-  yellow = "#ebcb8b", -- nord13 (visual mode)
-  red = "#bf616a", -- nord11 -- the signature coral red (replace mode)
-  grey1 = "#d8dee9", -- nord4
+  bg0 = "#000000", -- hemisu bg (black)
+  bg1 = "#111111", -- hemisu faint (statusline bg)
+  fg = "#EEEEEE", -- hemisu norm (foreground)
+  green = "#B1D631", -- hemisu accent2 (normal mode) -- same green as String/Keyword
+  aqua = "#CBE4EE", -- hemisu lightBlue (insert mode)
+  yellow = "#ECE1C8", -- hemisu accent4 / tan (visual mode) -- see naming note above
+  red = "#D65E76", -- hemisu normRed (replace mode)
+  grey1 = "#BBBBBB", -- hemisu lightGrey
 }
 
-local nord = {
+local hemisu = {
   normal = {
     a = { bg = c.green, fg = c.bg0, gui = "bold" },
     b = { bg = c.bg1, fg = c.fg },
@@ -44,7 +49,7 @@ return {
     "nvim-lualine/lualine.nvim",
     opts = {
       options = {
-        theme = nord,
+        theme = hemisu,
         globalstatus = true,
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },

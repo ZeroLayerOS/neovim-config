@@ -1,68 +1,70 @@
--- Theme rebuilt from the official Nord palette (verified against the
--- canonical base16-nord mapping used by tinted-theming / kitty-themes --
--- this is the standard, widely-adopted base16 <-> Nord translation, not
--- an invented one).
+-- hemisu palette (dark variant), mapped onto base16-pro-max.nvim.
 --
--- ABOUT THIS PALETTE: unlike N0tch2k (which is a near-monochrome
--- khaki/grunge palette with no real blue or purple), Nord is a proper
--- arctic, bluish palette with genuine distinct hues for every base16
--- accent slot -- including a real blue (nord9/nord10) and a real
--- purple/magenta (nord15). Nothing here is reused or faked: every
--- base08-base0F slot below maps 1:1 to an actual named Nord color.
+-- Source of truth: the uploaded hemisu.vim colorscheme by Noah Frederick
+-- (`&background == "dark"` branch). Every hex below is copied directly
+-- from that file's `s:...` color definitions and how they're actually
+-- used in its `s:h(...)` highlight calls -- credit to the original
+-- author for the palette itself.
 --
--- The signature "coral red" accent people usually mean when they say
--- "Nord with a distinct red" is nord11 (#BF616A) -- that's base08 below,
--- used for errors/variables/diagnostics, same role it plays in Nord's
--- own reference palette.
+-- Mapping notes (so nothing here is asserted without a reason):
+--   base00-base01  bg / faint bg      -> hemisu's `bg` and `faint`
+--   base02         selection bg       -> hemisu's `faintBlue`, which is
+--                                        literally what Visual/PmenuSel use
+--   base03-base05  comment/dim/fg     -> hemisu's `comment`, `dimmed`, `norm`
+--   base06-base07  light fg/bg        -> hemisu's unused `lightGrey`/`white`
+--                                        (defined in the file but not
+--                                        wired to a highlight group in the
+--                                        dark branch, so treated as spare)
+--   base08         red/errors         -> `normRed`, used for Todo/SpellBad
+--   base09         constants/numbers  -> `accent1`, used via Directory/Constant/Number
+--   base0A         classes            -> `accent3`, used for Type/Statement
+--   base0B         strings            -> `accent2`, hemisu's actual String color
+--   base0C         support/regex      -> `lightBlue`, defined in the file but
+--                                        only wired up in the light branch --
+--                                        borrowed here since dark has no 2nd blue
+--   base0D         functions/headings -> `accent4`, used for Title
+--   base0E         keywords           -> `accent2` reused, hemisu's actual Keyword color
+--   base0F         deprecated         -> `faintRed`, used for ErrorMsg bg
 --
--- Why base16-pro-max.nvim (unchanged from before):
+-- Why base16-pro-max.nvim (unchanged):
 --   * Derives Treesitter captures, LSP semantic tokens, and plugin
 --     integrations (mini.nvim, blink.cmp, gitsigns, which-key, flash,
 --     lualine, ...) from just the 16 base colors.
 --   * Cached recompute -- no real startup cost over a static colorscheme.
---
--- NOTE: pair this with disable-semantic-tokens.lua. rust-analyzer/clangd
--- semantic tokens still take priority over Treesitter regardless of the
--- palette, and will wash colors out to base05 again if left enabled --
--- that's a separate, unrelated mechanism from which palette is loaded.
 return {
   {
     "y3owk1n/base16-pro-max.nvim",
     lazy = false,
     priority = 1000,
     opts = {
-      -- Every value below is a literal Nord color (Polar Night / Snow
-      -- Storm / Frost / Aurora), matched to base16 slots using the
-      -- standard base16-nord scheme -- nothing invented, nothing reused
-      -- across slots the way N0tch2k needed for its missing hues.
       colors = {
-        base00 = "#2e3440", -- nord0  background          (Polar Night)
-        base01 = "#3b4252", -- nord1  statusline / line-nr bg (Polar Night)
-        base02 = "#434c5e", -- nord2  selection bg         (Polar Night)
-        base03 = "#4c566a", -- nord3  comments             (Polar Night, brightest)
-        base04 = "#d8dee9", -- nord4  dark fg / status bar (Snow Storm)
-        base05 = "#e5e9f0", -- nord5  foreground           (Snow Storm)
-        base06 = "#eceff4", -- nord6  light fg             (Snow Storm, brightest)
-        base07 = "#8fbcbb", -- nord7  active_tab_foreground (Frost, teal-tinted bright accent)
-        base08 = "#bf616a", -- nord11 red       (variables, errors) -- the signature coral red
-        base09 = "#d08770", -- nord12 orange    (numbers, constants)
-        base0A = "#ebcb8b", -- nord13 yellow    (classes/types)
-        base0B = "#a3be8c", -- nord14 green     (strings)
-        base0C = "#88c0d0", -- nord8  cyan      (regex/escapes) -- real Frost cyan
-        base0D = "#81a1c1", -- nord9  blue      (functions) -- real Frost blue, no reuse needed
-        base0E = "#b48ead", -- nord15 magenta/purple (keywords) -- real Aurora purple, no reuse needed
-        base0F = "#5e81ac", -- nord10 deep blue (deprecated / embedded-lang tags)
+        base00 = "#000000", -- bg               (hemisu `bg` / black)
+        base01 = "#111111", -- lighter bg        (hemisu `faint` / almostBlack)
+        base02 = "#005F87", -- selection bg      (hemisu `faintBlue` -- Visual/PmenuSel bg)
+        base03 = "#777777", -- comments          (hemisu `comment` / middleDarkGrey)
+        base04 = "#999999", -- dark fg / statusbar (hemisu `dimmed` -- StatusLineNC fg)
+        base05 = "#EEEEEE", -- foreground        (hemisu `norm` / almostWhite)
+        base06 = "#BBBBBB", -- light fg          (hemisu `lightGrey`, spare/unused slot)
+        base07 = "#FFFFFF", -- light bg          (hemisu `white`, spare/unused slot)
+
+        base08 = "#D65E76", -- red      (hemisu `normRed` -- Todo/SpellBad)
+        base09 = "#9FD3E6", -- orange   (hemisu `accent1` -- Constant/Number/Special/PreProc)
+        base0A = "#BBFFAA", -- yellow   (hemisu `accent3` -- Type/Statement)
+        base0B = "#B1D631", -- green    (hemisu `accent2` -- String, exact match)
+        base0C = "#CBE4EE", -- cyan     (hemisu `lightBlue` -- unused in dark branch, borrowed)
+        base0D = "#ECE1C8", -- blue     (hemisu `accent4` -- Title/headings)
+        base0E = "#B1D631", -- magenta  (hemisu `accent2` reused -- Keyword, exact match)
+        base0F = "#63001C", -- deprecated (hemisu `faintRed` -- ErrorMsg bg)
       },
 
       styles = {
-        italic = true,
-        bold = true,
+        italic = true, -- hemisu sets Comment to gui=italic
+        bold = true, -- Keyword/Title/StatusLine/Todo use gui=bold
         transparency = false,
         dim_inactive_windows = true,
       },
 
-      -- Sets vim.g.terminal_color_0..15 so :terminal buffers match your
-      -- Nord terminal palette.
+      -- Sets vim.g.terminal_color_0..15 so :terminal buffers match.
       setup_globals = {
         terminal_colors = true,
       },
