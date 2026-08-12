@@ -1,7 +1,6 @@
 {
   "LazyVim": { "branch": "main", "commit": "c10948c50b18fae7f256433afdef09e432410480" },
   "auto-save.nvim": { "branch": "main", "commit": "9aabcb8396224dcbf8d51c0c1d620d88a46e89d7" },
-  "base16-pro-max.nvim": { "branch": "main", "commit": "664e918d979e5ed625c1c443589a4d8112706a98" },
   "blink.cmp": { "branch": "main", "commit": "78336bc89ee5365633bcf754d93df01678b5c08f" },
   "bufferline.nvim": { "branch": "main", "commit": "655133c3b4c3e5e05ec549b9f8cc2894ac6f51b3" },
   "catppuccin": { "branch": "main", "commit": "edefef779ab08ce1a4a404713e3012b0d202bd35" },
@@ -52,6 +51,7 @@
   "twilight.nvim": { "branch": "main", "commit": "664e752f4a219801265cc3fc18782b457b58c1e1" },
   "venv-selector.nvim": { "branch": "main", "commit": "cc4bb3975de8835291f9bb45889e96c6b2795fc4" },
   "vim-illuminate": { "branch": "master", "commit": "91313e598ca62e110bc71535c49069b66b9883c9" },
+  "vimtex": { "branch": "master", "commit": "a5568d902cc20a76bb8ef70743f0157ec2e79ded" },
   "virt-column.nvim": { "branch": "master", "commit": "b87e3e0864211a32724a2ebf3be37e24e9e2fa99" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" },
   "zen-mode.nvim": { "branch": "main", "commit": "8564ce6d29ec7554eb9df578efa882d33b3c23a7" }

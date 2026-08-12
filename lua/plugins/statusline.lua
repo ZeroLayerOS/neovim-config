@@ -1,22 +1,22 @@
- -- Same hemisu hex values as colorscheme.lua, so lualine matches the
--- terminal/editor palette 1:1 instead of drifting to a different theme.
---
--- Naming note: the "yellow" slot below is hemisu's `accent4` (a warm
--- tan, #ECE1C8) rather than a true yellow -- hemisu's dark palette has
--- no real yellow, and tan is the closest warm accent it has, so it's
--- used for visual mode instead of forcing an unrelated color in.
+-- ~/.config/nvim/lua/plugins/statusline.lua
+-- lualine theme for "koda". Hex values here MUST equal the palette in
+-- colorscheme.lua (bg0/bg2/fg/accent/red) so the statusline blends into
+-- the rest of the UI instead of showing a seam against Normal/StatusLine.
+-- lualine reads its own theme table (not global highlight groups), so
+-- keeping these two files numerically in sync is what avoids the drift.
 local c = {
-  bg0 = "#000000", -- hemisu bg (black)
-  bg1 = "#111111", -- hemisu faint (statusline bg)
-  fg = "#EEEEEE", -- hemisu norm (foreground)
-  green = "#B1D631", -- hemisu accent2 (normal mode) -- same green as String/Keyword
-  aqua = "#CBE4EE", -- hemisu lightBlue (insert mode)
-  yellow = "#ECE1C8", -- hemisu accent4 / tan (visual mode) -- see naming note above
-  red = "#D65E76", -- hemisu normRed (replace mode)
-  grey1 = "#BBBBBB", -- hemisu lightGrey
+  bg0   = "#101010", -- koda bg0  (main background)
+  bg1   = "#272727", -- koda bg2  (statusline surface)
+  fg    = "#f1f1ef", -- koda fg
+  fg_dim = "#9aa0a6", -- koda fg_dim
+  green = "#94b385", -- koda green (NORMAL mode)
+  aqua  = "#eec278", -- koda accent/gold (INSERT mode — confirmed from theme reference)
+  yellow = "#7ea3c9", -- koda blue (VISUAL mode)
+  red   = "#f2666f", -- koda red (REPLACE mode)
+  grey1 = "#9aa0a6", -- koda fg_dim
 }
 
-local hemisu = {
+local koda = {
   normal = {
     a = { bg = c.green, fg = c.bg0, gui = "bold" },
     b = { bg = c.bg1, fg = c.fg },
@@ -49,7 +49,7 @@ return {
     "nvim-lualine/lualine.nvim",
     opts = {
       options = {
-        theme = hemisu,
+        theme = koda,
         globalstatus = true,
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },
