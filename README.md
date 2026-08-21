@@ -1,35 +1,57 @@
-# 💤 LazyVim — C & Python Edition (Catppuccin Mocha)
+# Ember Slate
 
-A starter template for [LazyVim](https://github.com/LazyVim/LazyVim), customized for
-**C/C++** and **Python** development, themed with **Catppuccin Mocha**.
+A dark, minimal Neovim colorscheme built around a deep slate background with a single warm ember-orange accent. Designed to match a coordinated terminal setup (kitty, btop, cava) for a consistent look across the whole desktop.
 
-## ما الجديد في الإعداد ده
+## Preview
 
-- **الثيم:** Catppuccin Mocha (Dark) بدل gruvbox-material.
-- **C/C++:** clangd, clang-format, cmake-tools, codelldb للـ debugging.
-- **Python:** basedpyright (LSP), ruff (lint + format), debugpy للـ debugging.
-- **Debugging موحد:** nvim-dap + nvim-dap-ui يشتغلوا مع C و Python (ومع Rust لو لسه محتاجه).
-- **Mason:** بيركب تلقائيًا كل الأدوات المطلوبة (clangd, codelldb, debugpy, ruff,...).
+- **Background:** `#101315` — deep, near-black slate
+- **Foreground:** `#cacccc` — soft off-white
+- **Accent:** `#de6145` — warm ember orange, used for keywords, functions, and highlights
+- **Supporting grays:** `#343d41`, `#565d60`, `#798186`, `#9fa5a9`, `#a5aeb4`, `#d9dbdc`
 
-Refer to the [documentation](https://lazyvim.github.io/installation) to get started.
+## Installation
 
-## بنية المشروع
+### Using lazy.nvim
 
+Place the colorscheme file at:
+~/.config/nvim/lua/custom-theme/colors/ember-slate.lua
+
+Then add a plugin spec:
+
+```lua
+return {
+  {
+    "custom-theme",
+    dir = vim.fn.stdpath("config") .. "/lua/custom-theme",
+    name = "custom-theme",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd("colorscheme ember-slate")
+    end,
+  },
+}
 ```
-.
-├── init.lua
-├── lua
-│   ├── config
-│   │   ├── autocmds.lua
-│   │   ├── keymaps.lua
-│   │   ├── lazy.lua
-│   │   └── options.lua
-│   └── plugins
-│       ├── colorscheme.lua      -- Catppuccin Mocha
-│       ├── debugging.lua        -- DAP (C / Python / Rust)
-│       ├── lang_c.lua           -- C/C++ tooling
-│       ├── lang_python.lua      -- Python tooling
-│       ├── productivity.lua
-│       ├── statusline.lua
-│       └── ui.lua
-```
+
+## Highlight Groups Covered
+
+* Core UI: `Normal`, `CursorLine`, `LineNr`, `Visual`, `Search`, `StatusLine`, `Pmenu`
+* Syntax: `Comment`, `String`, `Function`, `Keyword`, `Type`, `Special`, `Error`
+* Diff: `DiffAdd`, `DiffChange`, `DiffDelete`, `DiffText`
+* Diagnostics: `DiagnosticError`, `DiagnosticWarn`, `DiagnosticInfo`, `DiagnosticHint`
+
+## Philosophy
+
+Ember Slate avoids multi-color syntax highlighting in favor of a restrained palette: mostly grayscale tones for structure and readability, with the ember-orange accent reserved for what actually matters — keywords, functions, and anything that needs your attention.
+
+## Companion Themes
+
+This colorscheme is part of a matching set:
+
+* **kitty** — terminal emulator theme
+* **btop** — system monitor theme
+* **cava** — audio visualizer gradient
+
+## License
+
+MIT
