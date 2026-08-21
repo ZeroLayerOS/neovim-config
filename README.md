@@ -1,4 +1,9 @@
 # Ember Slate
+![License](https://img.shields.io/badge/license-MIT-de6145)
+![Lua](https://img.shields.io/badge/Lua-100%25-343d41)
+![Neovim](https://img.shields.io/badge/Neovim-0.9%2B-9fa5a9)
+
+A dark, minimal Neovim colorscheme built around a deep slate background with a single warm ember-orange accent. Designed to match a coordinated terminal setup (kitty, btop, cava) for a consistent look across the whole desktop.
 
 A dark, minimal Neovim colorscheme built around a deep slate background with a single warm ember-orange accent. Designed to match a coordinated terminal setup (kitty, btop, cava) for a consistent look across the whole desktop.
 
@@ -8,6 +13,7 @@ A dark, minimal Neovim colorscheme built around a deep slate background with a s
 - **Foreground:** `#cacccc` — soft off-white
 - **Accent:** `#de6145` — warm ember orange, used for keywords, functions, and highlights
 - **Supporting grays:** `#343d41`, `#565d60`, `#798186`, `#9fa5a9`, `#a5aeb4`, `#d9dbdc`
+![Ember Slate Preview](./screenshot.png)
 
 ## Installation
 
