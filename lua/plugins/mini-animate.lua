@@ -1,16 +1,19 @@
- return {
+return {
   "nvim-mini/mini.animate",
   event = "VeryLazy",
   opts = function()
     return {
       cursor = { enable = true },
+      -- FIX: scroll animation was making large jumps (G, gg, Ctrl-D/U,
+      -- or any big jump in visual mode) feel laggy -- the screen would
+      -- animate through every intermediate line instead of jumping
+      -- straight there, which is what "بيعلق وينزل حتة حتة" was
+      -- describing. Disabled scroll animation entirely; cursor/resize
+      -- animations (small, local movements) are unaffected and stay on.
       scroll = {
-        enable = true,
-        timing = require("mini.animate").gen_timing.linear({ duration = 150, unit = "total" }),
+        enable = false,
       },
       resize = { enable = true },
-      -- window open/close animations off by default -- mostly noise with
-      -- LazyVim's float-heavy UI (Telescope, Lazy, etc.)
       open = { enable = false },
       close = { enable = false },
     }

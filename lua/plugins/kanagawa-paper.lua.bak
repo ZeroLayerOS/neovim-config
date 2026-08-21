@@ -5,12 +5,11 @@ return {
     priority = 1000,
     config = function()
       require("kanagawa-paper").setup({
-        -- تقدر تسيبها فاضية كده وتستخدم الإعدادات الافتراضية
+        theme = "ink",
       })
       vim.cmd.colorscheme("kanagawa-paper")
     end,
   },
-  -- خلي LazyVim يعرف إن ده الكولورسكيم الافتراضي دلوقتي
   {
     "LazyVim/LazyVim",
     opts = {
